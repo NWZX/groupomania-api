@@ -1,0 +1,69 @@
+scalar Upload
+type User {
+    id: Float
+    username: String!
+    password: String!
+    timestamp: Float
+    authorization: Int
+}
+type UserToken{
+    username: String!
+    token: String!
+}
+type UserLimited{
+    id: Float
+    username: String!
+    authorization: Int!
+}
+
+type Comment{
+    id: Float
+    userId: Float!
+    postId: Float!
+    data: String!
+    timestamp: Float
+}
+type Post{
+    id: Float
+    user: UserLimited!
+    type: Int!
+    categorie: String!
+    title: String!
+    url: String!
+    data: String!
+    timestamp: Float
+    editUser: UserLimited
+    editTimestamp: Float
+    commentsNumber: Float
+    comments: [Comment]
+}
+
+type Votes {
+    postId: Float!
+    count: Float!
+}
+
+type Query{
+    posts(limit: Int, timestamp: Float): [Post!]!
+    post(id: Float!): Post!
+
+    user(username: String, userId: Float): UserLimited!
+
+    vote(postId: Float!): Votes!
+}
+
+type Mutation {
+    createUser(username: String!, password: String!) : UserToken!
+    loginUser(username: String!, password: String!) : UserToken!
+    delUser(username: String!) : Boolean!
+
+    addPost(username: String!, type: Int!, categorie: String!, title: String!, data: String!, url: String!) : Post!
+    editPost(id:Float!, username: String!, type: Int!, categorie: String!, title: String!, data: String!, url: String!) : Post!
+    delPost(id: Float!, username: String!) : Boolean!
+
+    addComment(username: String!, postId: Float!, data: String!) : Comment!
+    editComment(id:Float!, username: String!, data: String!) : Comment!
+    delComment(username: String!, id: Float!) : Boolean!    
+
+    newVote(postId: Float!, username: String!, spin: Boolean!) : Boolean!
+}
