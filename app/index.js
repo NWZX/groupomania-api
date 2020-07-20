@@ -140,6 +140,7 @@ var app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/', express.static(join(__dirname, '..', 'public')));
 app.use('/blob', express.static(path));
 app.post(
     "/upload",
@@ -165,5 +166,5 @@ app.use('/graphql', auth, graphqlHTTP( req => ({
 })));
 
 
-app.listen(4000);
-console.log('Running a GraphQL API server at http://localhost:4000/graphql');
+app.listen(5000);
+console.log('Running a GraphQL API server at http://localhost:5000/graphql');
