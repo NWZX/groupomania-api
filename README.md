@@ -17,3 +17,7 @@ DB_HOST=localhost
 DB_PORT=Database Port
 
 # Start
+
+npm install
+
+npm start
